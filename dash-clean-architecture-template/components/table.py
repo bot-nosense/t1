@@ -1,4 +1,5 @@
-import dash_html_components as html
+# import dash_html_components as html
+from dash import html
 
 from utils.functions import formatter_2_decimals
 
