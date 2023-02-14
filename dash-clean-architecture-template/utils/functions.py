@@ -5,20 +5,12 @@ def formatter_2_decimals(x):
 
 # -------------------
 
-def create_data_model(model_name, value_list):
+def create_data_model(model, value_list):
 	for key, value in value_list.items():
-		for k, v in model_name.items():
+		for k, v in model.items():
 
-			model_name[k].append(key)
-			model_name[k].append(value)
+			model[k].append(key)
+			model[k].append(value)
 
-	return model_name
+	return model
 
-# def get_data_model(data_table):
-
-# 	location_type_list = get_location_type_list(locations)
-# 	for key, value in location_type_list.items():
-# 		for k, v in data_table.items():
-
-# 			data_table[k].append(key)
-# 			data_table[k].append(value)
