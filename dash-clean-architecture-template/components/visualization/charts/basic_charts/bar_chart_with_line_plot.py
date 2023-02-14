@@ -1,5 +1,6 @@
 # https://plotly.com/python/horizontal-bar-charts/
 
+from components.visualization.import_library import *
 from ..charts import * 
 
 class Bar_Chart_with_Line_Plot(Charts): 
