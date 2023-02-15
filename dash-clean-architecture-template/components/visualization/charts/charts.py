@@ -5,10 +5,12 @@ class Charts():
     
     data_model : list 
     layouts: dict 
+    fig: go.Figure()
 
-    def __init__(self, data = None, layout = None): 
+    def __init__(self, data = None, layout = None, fig = None): 
         self.data_model = data
         self.layouts = layout
+        self.fig = fig
 
     def update_layout(self):
         pass
@@ -20,6 +22,9 @@ class Charts():
         pass
 
     def render_px(self):
+        pass
+
+    def render_go_trace(self):
         pass
         
 
