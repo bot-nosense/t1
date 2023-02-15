@@ -3,10 +3,12 @@ from ..import_library import *
 @dataclass
 class Charts():
     
-    data_model : list
+    data_model : list 
+    layouts: dict 
 
-    def __init__(self, data): #, update_layout, update_traces
+    def __init__(self, data = None, layout = None): 
         self.data_model = data
+        self.layouts = layout
 
     def update_layout(self):
         pass
@@ -14,10 +16,12 @@ class Charts():
     def update_traces(self):
         pass
 
-    def renders(self, _data):
-        fig = go.Figure( data = _data )
-        fig.update_traces(hole = 0.3)
-        return dcc.Graph(figure = fig)
+    def render_go(self):
+        pass
+
+    def render_px(self):
+        pass
+        
 
 
 

@@ -10,5 +10,9 @@ from components.visualization.draw import *
 
 layout = html.Div( [
     composition_of_locations(), # Pie chart
+    point_on_the_map(), # Scatter Mapbox
 
+
+
+    
 ])

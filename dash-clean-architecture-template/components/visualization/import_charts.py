@@ -10,3 +10,5 @@ from .charts.basic_charts.dot_plot import *
 from .charts.basic_charts.filled_area_plots import *
 from .charts.basic_charts.scatter_plots import *
 from .charts.basic_charts.gantt_chart import *
+
+from .charts.maps.scatter_plots_on_mapbox import *
