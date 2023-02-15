@@ -12,6 +12,12 @@ class Scatter_Plots_on_Mapbox(Charts):
         else:
             return 'Scatter_Plots_on_Mapbox: data model'
 
+    def render_go_trace(self):
+        if self.fig:
+            return dcc.Graph(figure = self.fig)
+        else:
+            return 'Scatter_Plots_on_Mapbox: data model'
+
 
 '''
         Example:
