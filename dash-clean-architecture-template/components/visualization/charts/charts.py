@@ -12,18 +12,21 @@ class Charts():
         self.layouts = layout
         self.fig = fig
 
-    def update_layout(self):
-        pass
+    # def update_layout(self):
+    #     pass
 
-    def update_traces(self):
-        pass
+    # def update_traces(self):
+    #     pass
 
+        # render with graph object
     def render_go(self):
         pass
 
+        # render with plotly express
     def render_px(self):
         pass
 
+        # render with graph object but add traces
     def render_go_trace(self):
         pass
         

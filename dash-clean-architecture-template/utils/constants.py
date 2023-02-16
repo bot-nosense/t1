@@ -2,6 +2,7 @@ home_page_location = "/"
 gdp_page_location = "/gdp"
 iris_page_location = "/iris"
 location_page_location = "/location"
+depot_page_location = "/depot"
 
 TIMEOUT = 60
 
@@ -13,8 +14,10 @@ locations_default = {
     "Ha Noi": {
         'lat': 21.0890352, 'lon': 105.8119452
     },
-    "Boston": "Boston, MA",
-    "Chicago": "Chicago, IL",
-    "Dallas": "Dallas, TX",
-    "Houston": "Houston, TX",
+    "Thanh Hoa": {
+        'lat': 19.7557489, 'lon': 106.041332
+    },
+    "Vinh": {
+        'lat': 18.7236488, 'lon': 105.4709316
+    },
 }

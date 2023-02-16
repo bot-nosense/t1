@@ -20,7 +20,7 @@ class Scatter_Plots_on_Mapbox(Charts):
 
 
 '''
-        Example:
+        Example render_go:
     import plotly.graph_objects as go
     import pandas as pd
 

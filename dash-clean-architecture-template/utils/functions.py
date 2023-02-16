@@ -1,3 +1,5 @@
+import random
+
 
 def formatter_2_decimals(x):
 	return "{:.2f}".format(x)
@@ -20,3 +22,15 @@ def create_data_model(model, struct):
 
     return model
 
+
+def random_color():
+    return "#"+''.join([random.choice('0123456789ABCDEF') for j in range(6)])
+
+
+def set_color_scheme_location_type(location_type):
+    match location_type:
+        case "HUB": return 'green'
+        case "DEPOT": return'red'
+        case "STATION": return 'blue'
+        case "CUSTOMER": return 'orange'
+        case "SATELLITE": return 'purple'
