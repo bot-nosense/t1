@@ -13,6 +13,12 @@ class Pie_Charts(Charts):
         else:
             return 'Pie_Charts: data model'
 
+    def render_go_trace(self):
+        if self.fig:
+            return dcc.Graph(figure = self.fig)
+        else:
+            return 'Pie_Charts: data model'
+
 
 
 

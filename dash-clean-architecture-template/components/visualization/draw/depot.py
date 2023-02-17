@@ -35,4 +35,6 @@ def composition_of_depot():
 
 
 
-    
+# bar chart
+def wroking_time_of_depot():
+    return 1
