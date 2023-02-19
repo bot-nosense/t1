@@ -3,6 +3,7 @@ gdp_page_location = "/gdp"
 iris_page_location = "/iris"
 location_page_location = "/location"
 depot_page_location = "/depot"
+vehicle_page_location = "/vehicle"
 
 TIMEOUT = 60
 

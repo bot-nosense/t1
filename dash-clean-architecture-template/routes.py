@@ -1,17 +1,18 @@
 import dash_bootstrap_components as dbc
-# import dash_html_components as html
-from dash import html
+import dash_html_components as html
 from dash.dependencies import Input, Output
 
 from app import app
 
-from utils.constants import home_page_location, gdp_page_location, iris_page_location, location_page_location, depot_page_location
+from utils.constants import home_page_location, gdp_page_location, iris_page_location, location_page_location, depot_page_location, vehicle_page_location
 
 from pages.home import home
 from pages.gdp import gdp
 from pages.iris import iris
 from pages.location import location
 from pages.depot import depot
+from pages.vehicle import vehicle
+
 
 
 
@@ -27,6 +28,8 @@ def render_page_content(pathname):
         return location.layout
     elif pathname == depot_page_location:
         return depot.layout
+    elif pathname == vehicle_page_location:
+        return vehicle.layout
     # If the user tries to reach a different page, return a 404 message
     return dbc.Jumbotron(
         [
