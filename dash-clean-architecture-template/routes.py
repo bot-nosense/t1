@@ -4,11 +4,12 @@ from dash.dependencies import Input, Output
 
 from app import app
 
-from utils.constants import home_page_location, gdp_page_location, iris_page_location, location_page_location, depot_page_location, vehicle_page_location
+from utils.constants import home_page_location, location_page_location, depot_page_location, vehicle_page_location, request_page_location
+
 
 from pages.home import home
-from pages.gdp import gdp
-from pages.iris import iris
+# from pages.gdp import gdp
+from pages.request import request
 from pages.location import location
 from pages.depot import depot
 from pages.vehicle import vehicle
@@ -20,10 +21,10 @@ from pages.vehicle import vehicle
 def render_page_content(pathname):
     if pathname == home_page_location:
         return home.layout
-    elif pathname == gdp_page_location:
-        return gdp.layout
-    elif pathname == iris_page_location:
-        return iris.layout
+    # elif pathname == gdp_page_location:
+        # return gdp.layout
+    elif pathname == request_page_location:
+        return request.layout
     elif pathname == location_page_location:
         return location.layout
     elif pathname == depot_page_location:
