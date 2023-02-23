@@ -34,3 +34,10 @@ def set_color_scheme_location_type(location_type):
         case "STATION": return 'blue'
         case "CUSTOMER": return 'orange'
         case "SATELLITE": return 'purple'
+
+
+def get_minute(time):       # time = '2019-01-01 10:40'
+    minute = time.split()[1]
+    split_time = minute.split(':')
+    result = int(split_time[0]) * 60 + int(split_time[1])
+    return result
