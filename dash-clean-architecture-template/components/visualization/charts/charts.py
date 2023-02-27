@@ -12,11 +12,7 @@ class Charts():
         self.layouts = layout
         self.fig = fig
 
-    # def update_layout(self):
-    #     pass
 
-    # def update_traces(self):
-    #     pass
 
         # render with graph object
     def render_go(self):

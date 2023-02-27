@@ -1,10 +1,10 @@
 home_page_location = "/"
-# gdp_page_location = "/gdp"
-# iris_page_location = "/iris"
 location_page_location = "/location"
 depot_page_location = "/depot"
 vehicle_page_location = "/vehicle"
 request_page_location = "/request"
+customer_page_location = "/customer"
+mtr_config_page_location = "/matrix_config"
 
 TIMEOUT = 60
 

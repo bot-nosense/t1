@@ -5,47 +5,96 @@ from utils.functions import *
 from utils.constants import *
 
 
-# pie chart
+# # pie chart
+# def composition_of_locations():
+
+#     def get_location_type_list(locations):
+
+#         number_of_customer, number_of_depot, number_of_station, number_of_hub, number_of_satellife = 0, 0, 0, 0, 0
+
+#         for i in range( len(locations) ):
+
+#             location_type = ( locations[i]['lTypes'] )[0]
+#             match location_type:
+#                 case "HUB": number_of_hub += 1
+#                 case "DEPOT": number_of_depot += 1
+#                 case "STATION": number_of_station += 1
+#                 case "CUSTOMER": number_of_customer += 1
+#                 case "SATELLITE": number_of_satellife += 1
+        
+#         return { 'Customer': number_of_customer, 'Depot': number_of_depot, 'Station': number_of_station, 'Hub': number_of_hub, 'Satellite': number_of_satellife } 
+
+#     def create_model(locations, struct_input):
+
+#         location_type_list = get_location_type_list(locations)
+#         create_data_model(location_type_list, struct_input)
+#         df = pd.DataFrame(struct_input)
+
+#         return df
+
+#     struct_input = { 'Name': [], 'Quantity': [] }
+#     model = create_model( locations, struct_input )
+#     data = go.Pie(labels=model.Name, values=model.Quantity)
+#     pie_chart = Pie_Charts(data)
+
+#     return pie_chart.render_go()
+
+
 def composition_of_locations():
 
-    def get_location_type_list(locations):
+    def data_preprocessing(locations, model): 
 
-        number_of_customer, number_of_depot, number_of_station, number_of_hub, number_of_satellife = 0, 0, 0, 0, 0
+        def get_location_type_list(locations):
 
-        for i in range( len(locations) ):
+            number_of_customer, number_of_depot, number_of_station, number_of_hub, number_of_satellife = 0, 0, 0, 0, 0
 
-            location_type = ( locations[i]['lTypes'] )[0]
-            match location_type:
-                case "HUB": number_of_hub += 1
-                case "DEPOT": number_of_depot += 1
-                case "STATION": number_of_station += 1
-                case "CUSTOMER": number_of_customer += 1
-                case "SATELLITE": number_of_satellife += 1
-        
-        return { 'Customer': number_of_customer, 'Depot': number_of_depot, 'Station': number_of_station, 'Hub': number_of_hub, 'Satellite': number_of_satellife } 
+            for i in range( len(locations) ):
 
-    def create_model(locations, struct_input):
+                location_type = ( locations[i]['lTypes'] )[0]
+                match location_type:
+                    case "HUB": number_of_hub += 1
+                    case "DEPOT": number_of_depot += 1
+                    case "STATION": number_of_station += 1
+                    case "CUSTOMER": number_of_customer += 1
+                    case "SATELLITE": number_of_satellife += 1
+            
+            return { 'Customer': number_of_customer, 'Depot': number_of_depot, 'Station': number_of_station, 'Hub': number_of_hub, 'Satellite': number_of_satellife } 
 
         location_type_list = get_location_type_list(locations)
-        create_data_model(location_type_list, struct_input)
-        df = pd.DataFrame(struct_input)
+        A = model[list(model.keys())[0]]
+        B = model[list(model.keys())[1]]
+        for a, b in location_type_list.items():
+            A.append(str(a))
+            B.append(str(b))
+        print('model', model)
+        return model
 
-        return df
+    def create_data_model(locations, model):
+        model = data_preprocessing(locations, model)
+        model['title'] = "Composition of location"
+        return model
 
-    struct_input = { 'Name': [], 'Quantity': [] }
-    model = create_model( locations, struct_input )
-    data = go.Pie(labels=model.Name, values=model.Quantity)
-    pie_chart = Pie_Charts(data)
+    def add_traces(fig, model):
+        fig.add_trace( go.Pie(labels=  model['location_type']  , values=  model['quantity']   ) )                                                    
+        return fig
 
-    return pie_chart.render_go()
+    def draw_model():
+        fig = go.Figure()                                           
+        model = { 'location_type': [], 'quantity': [], "title": [], 'color':[] }                          
+        data_model = create_data_model(locations, model)          
+        add_traces(fig, data_model)
+        fig.update_layout( title={ 'text': model['title'], 'y':0.9, 'x':0.5, 'xanchor': 'right', 'yanchor': 'top'} )
+        pie_chart = Pie_Charts(fig = fig)
+        return pie_chart.render_go_trace()                      
+
+    return draw_model()
 
 
 
 # map chart
 def point_on_the_map():
 
-    model = {
-        'Name': [], # loaction type
+    model = { 'Name': [], # loaction type
         'Latitude': [],
         'Longitude': [],
         'Color': []
@@ -100,3 +149,28 @@ def point_on_the_map():
     return map_chart.render_go_trace()
 
 
+
+def chart_name():
+
+    def data_preprocessing(locations, model): 
+        return model
+
+    def create_data_model(locations, model):
+        model = data_preprocessing(locations, model)
+        return model
+
+    def add_traces(fig, model):
+        fig.add_trace()                                             
+        return fig
+
+    def draw_model():
+        fig = go.Figure()                                           
+        model = { 'location_type': [], 'latitude': [], 'longitude': [], 'color': []  }                          
+        data_model = create_data_model(locations, model)          
+        add_traces(fig, data_model)
+        # fig.update_layout()
+        # fig.update_traces()                                         
+        combine_chart = BarScatterCombine(fig = fig)                
+        return combine_chart.render_go_trace()                      
+
+    return draw_model()

@@ -41,3 +41,4 @@ def get_minute(time):       # time = '2019-01-01 10:40'
     split_time = minute.split(':')
     result = int(split_time[0]) * 60 + int(split_time[1])
     return result
+
