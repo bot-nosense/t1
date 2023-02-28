@@ -8,10 +8,38 @@ from utils.constants import *
 
 
 # tỷ lệ loại hàng trong mỗi item, được dùng khi có callback
+# def get_item_type_by_vehicle():
+
+#     def create_data_model(requests, model):
+        
+#         temp_data = []
+#         for index in range( len(requests)):
+#             request_index = requests[index]['items']
+#             for item in range( len(request_index) ):
+#                 temp_data.append(request_index[item]['iType']['typeOfItemByVehicle'])
+#         data = collections.Counter(temp_data)
+
+#         A = model[list(model.keys())[0]]
+#         B = model[list(model.keys())[1]]
+#         for a, b in data.items():
+#             A.append(str(a))
+#             B.append(str(b))
+
+#         return model        
+
+#     def draw_model():
+#         model = {  'Name': [], 'Quantity': []  }
+#         data_model = create_data_model(requests, model)
+#         data = go.Pie(labels=data_model['Name'], values=data_model['Quantity'])
+#         pie_chart = Pie_Charts(data)
+#         return pie_chart.render_go()
+
+#     return draw_model()
+
+
 def get_item_type_by_vehicle():
 
-    def create_data_model(requests, model):
-        
+    def data_preprocessing(requests, model): 
         temp_data = []
         for index in range( len(requests)):
             request_index = requests[index]['items']
@@ -25,17 +53,27 @@ def get_item_type_by_vehicle():
             A.append(str(a))
             B.append(str(b))
 
-        return model        
+        return model
+
+    def create_data_model(requests, model):
+        model = data_preprocessing(requests, model)
+        model['title'] = "get item type by vehicle"
+        return model
+
+    def add_traces(fig, model):
+        fig.add_trace( go.Pie(labels=  model['name']  , values=  model['quantity']   ) )   
+        return fig
 
     def draw_model():
-        model = {  'Name': [], 'Quantity': []  }
-        data_model = create_data_model(requests, model)
-        data = go.Pie(labels=data_model['Name'], values=data_model['Quantity'])
-        pie_chart = Pie_Charts(data)
-        return pie_chart.render_go()
+        fig = go.Figure()                                           
+        model = { 'name': [], 'quantity': [], "title": []  }                          
+        data_model = create_data_model(requests, model)          
+        add_traces(fig, data_model)
+        fig.update_layout( title={ 'text': model['title'], 'y':0.9, 'x':0.5, 'xanchor': 'right', 'yanchor': 'top'} )
+        pie_chart = Pie_Charts(fig= fig)                
+        return pie_chart.render_go_trace()                      
 
     return draw_model()
-
 
 # đơn hàng và lượng hàng trong đơn đó
 def count_items_by_request():
@@ -50,7 +88,7 @@ def count_items_by_request():
         # model['mark_color'] = ['']
         # model['width'] = ['']
         # model['name'] = ['']
-        # model['title'] = ['']
+        model['title'] = 'count items by request'
         return model
 
     def add_traces(fig, model):
@@ -63,6 +101,7 @@ def count_items_by_request():
         model = { 'title': [], 'x': [], 'y': [], 'width': [], 'marker_color': [], 'name': []}
         data_model = create_data_model(requests, model)
         add_traces(fig, data_model)
+        fig.update_layout( title={ 'text': model['title'], 'y':0.9, 'x':0.5, 'xanchor': 'right', 'yanchor': 'top'} )
         bar_chart = Bar_Charts(fig= fig)
         return bar_chart.render_go_trace()
     return draw_model()
@@ -86,6 +125,7 @@ def pickup_location_for_request():
     
     def create_data_model(object_svrp, model):
         model = data_preprocessing(object_svrp, model)
+        model['title'] = "pickup location for request"
         return model
 
     def add_traces(fig, model):
@@ -97,6 +137,7 @@ def pickup_location_for_request():
         model = { 'title': [], 'labels': [], 'values': [], 'width': [], 'name': []}
         data_model = create_data_model(requests, model)
         add_traces(fig, data_model)
+        fig.update_layout( title={ 'text': model['title'], 'y':0.9, 'x':0.5, 'xanchor': 'right', 'yanchor': 'top'} )
         pie_chart = Pie_Charts(fig= fig)
         return pie_chart.render_go_trace()
 
@@ -121,6 +162,7 @@ def delivery_location_for_request():
     
     def create_data_model(object_svrp, model):
         model = data_preprocessing(object_svrp, model)
+        model['title'] = "delivery location for request"
         return model
 
     def add_traces(fig, model):
@@ -132,6 +174,7 @@ def delivery_location_for_request():
         model = { 'title': [], 'labels': [], 'values': [], 'width': [], 'name': []}
         data_model = create_data_model(requests, model)
         add_traces(fig, data_model)
+        fig.update_layout( title={ 'text': model['title'], 'y':0.9, 'x':0.5, 'xanchor': 'right', 'yanchor': 'top'} )
         pie_chart = Pie_Charts(fig= fig)
         return pie_chart.render_go_trace()
         
@@ -151,6 +194,7 @@ def capacity_for_request():
 
     def create_data_model(requests, model, request_index):
         model = data_preprocessing(requests, model, request_index)
+        model['title'] = "capacity for request"
         return model
 
     def add_traces(fig, model):
@@ -165,6 +209,7 @@ def capacity_for_request():
         request_index = 0
         data_model = create_data_model(requests, model, request_index)
         add_traces(fig, data_model)
+        fig.update_layout( title={ 'text': model['title'], 'y':0.9, 'x':0.5, 'xanchor': 'right', 'yanchor': 'top'} )
         combine_chart = BarScatterCombine(fig = fig)
         return combine_chart.render_go_trace()
 

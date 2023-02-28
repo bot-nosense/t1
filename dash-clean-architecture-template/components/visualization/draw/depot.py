@@ -37,18 +37,18 @@ def composition_of_depot():
         model['title'] = "Composition of depot"
         return model
 
-    # def add_traces(fig, model):
-    #     fig.add_trace()                                             
-    #     return fig
+    def add_traces(fig, model):
+        fig.add_trace( go.Pie(labels=  model['depot_name']  , values=  model['quantity']   ) )                                                    
+        return fig
 
     def draw_model():
-        # fig = go.Figure()                                           
+        fig = go.Figure()                                           
         model = { 'depot_name': [], 'quantity': [], "title": [] }                          
         data_model = create_data_model(depots, model)          
-        input_chart = [go.Pie(labels=data_model['depot_name'], values=data_model['quantity'])]
-        pie_chart = Pie_Charts(data = input_chart)
-        # fig.update_layout( title={ 'text': model['title'], 'y':0.9, 'x':0.5, 'xanchor': 'right', 'yanchor': 'top'} )
-        return pie_chart.render_go()          # chuyển các tham số về hàm render_go_traces()           
+        add_traces(fig, data_model)
+        pie_chart = Pie_Charts(fig= fig)
+        fig.update_layout( title={ 'text': model['title'], 'y':0.9, 'x':0.5, 'xanchor': 'right', 'yanchor': 'top'} )
+        return pie_chart.render_go_trace()                    
 
     return draw_model()
 
@@ -57,22 +57,6 @@ def composition_of_depot():
 def wroking_time_of_depot():
 
     def data_preprocessing(depots, model): 
-
-        def create_time_default(working_time): # input: '2019-01-01 00:00'
-            get_day = working_time.split()[0]
-            return [get_day + ' 00:00:00', get_day + ' 24:00:00'] # start and end time of 1 days
-
-
-        def get_seed_time(depots):
-            result = []
-            time_default = create_time_default(depots[0]['workingTime']['start'])
-
-            for index in range( len(depots) ):
-                working_time = depots[index]['workingTime']
-                break_time = depots[index]['breakTimes'][0]
-                result.append([time_default[0], working_time['start'], break_time['start'], break_time['end'], working_time['end'], time_default[1]])
-            return result
-
 
         # convert data to struct input model
         def convert_struct_seed(seed):
@@ -94,7 +78,7 @@ def wroking_time_of_depot():
             return result
 
 
-        data = convert_struct_seed(get_seed_time(depots))
+        data = convert_struct_seed(object_operating_time(depots))
         model['timeline']= create_timeline(data)
         
         return model

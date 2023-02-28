@@ -18,16 +18,19 @@ def unload_time_for_customer():
         model['unload_time_per_cbm'].append( [  customers[cus_index]['unloadTimePerCbm'] for cus_index in range( len( customers ) ) ] )
         return model
 
+
     def create_data_model(customers, model):
         model = data_preprocessing(customers, model)
         model['title'] = "Unload time for customer"
         return model
+
 
     def add_traces(fig, model):
         fig.add_trace( go.Scatter( x= model['cus_name'][0], y= model['fixed_unload_time'][0], name= 'fixed unload time' ) )
         fig.add_trace( go.Bar( x= model['cus_name'][0], y= model['unload_time_per_ton'][0], name= 'unload time per ton', width = [ 0.3, 0.3 ] ) )
         fig.add_trace( go.Bar( x= model['cus_name'][0], y= model['unload_time_per_cbm'][0], name= 'unload time per cbm', width = [ 0.3, 0.3 ] ) )
         return fig
+
 
     def draw_model():
         fig = go.Figure()
@@ -42,26 +45,9 @@ def unload_time_for_customer():
 
 
 
-# thời gian hoạt động của cus
-def wroking_time_of_customer(): # xét trường hợp cus chỉ hoạt động trong ngày
+def wroking_time_of_customer(): # the customer is only open during the day
 
     def data_preprocessing(customers, model):
-
-        # start and end time of 1 days
-        def create_limited_time(working_time):  # input: '2019-01-01 40:00'
-            return [working_time.split()[0] + ' 00:00:00', working_time.split()[0] + ' 24:00:00']   # output: [ '2019-01-01 00:00', '2019-01-02 24:00' ]
-        
-    
-        # get layout model 
-        def create_time_layout(customers):  # output: [ [ start_day_time, start_working_time, start_break_time, end_break_time, end_working_time, end_day_time ] ] 
-            time_layout = []
-            limited_time = create_limited_time(customers[0]['workingTime']['start'])
-            for index in range( len(customers) ):
-                working_time = customers[index]['workingTime']
-                break_time = customers[index]['breakTimes'][0]
-                time_layout.append([limited_time[0], working_time['start'], break_time['start'], break_time['end'], working_time['end'], limited_time[1]])
-            return time_layout  
-        
         
         # convert data to struct input model
         def convert_struct_time_layout(seed):
@@ -80,7 +66,7 @@ def wroking_time_of_customer(): # xét trường hợp cus chỉ hoạt động 
                 result.append(timeline)
             return result
         
-        time_layout = convert_struct_time_layout(create_time_layout(customers))
+        time_layout = convert_struct_time_layout(object_operating_time(customers))
         model['timeline']= create_timeline(time_layout)
         return model
     

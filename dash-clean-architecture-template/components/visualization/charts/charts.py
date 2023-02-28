@@ -4,15 +4,13 @@ from ..import_library import *
 class Charts():
     
     data_model : list 
-    layouts: dict 
-    fig: go.Figure()
+    layouts: dict       # cân nhắc xóa bỏ 
+    fig: go.Figure() # khởi tạo biến fig với giá trị là 1 hàm figue()
 
     def __init__(self, data = None, layout = None, fig = None): 
         self.data_model = data
         self.layouts = layout
         self.fig = fig
-
-
 
         # render with graph object
     def render_go(self):
