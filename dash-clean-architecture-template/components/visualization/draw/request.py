@@ -39,6 +39,7 @@ from utils.constants import *
 
 def get_item_type_by_vehicle():
 
+
     def data_preprocessing(requests, model): 
         temp_data = []
         for index in range( len(requests)):
@@ -55,14 +56,17 @@ def get_item_type_by_vehicle():
 
         return model
 
+
     def create_data_model(requests, model):
         model = data_preprocessing(requests, model)
         model['title'] = "get item type by vehicle"
         return model
 
+
     def add_traces(fig, model):
         fig.add_trace( go.Pie(labels=  model['name']  , values=  model['quantity']   ) )   
         return fig
+
 
     def draw_model():
         fig = go.Figure()                                           
@@ -71,18 +75,22 @@ def get_item_type_by_vehicle():
         add_traces(fig, data_model)
         fig.update_layout( title={ 'text': model['title'], 'y':0.9, 'x':0.5, 'xanchor': 'right', 'yanchor': 'top'} )
         pie_chart = Pie_Charts(fig= fig)                
-        return pie_chart.render_go_trace()                      
+        return pie_chart.render_go_trace() 
 
     return draw_model()
 
+
+
 # đơn hàng và lượng hàng trong đơn đó
 def count_items_by_request():
+
 
     def data_preprocessing(object_svrp, model):
         model['x'].append([ object_svrp[index]['orderCode'] for index in range( len(object_svrp) ) ])
         model['y'].append( [ len( object_svrp[index]['items'] ) for index in range( len( object_svrp ) ) ])
         return model
     
+
     def create_data_model(object_svrp, model):
         model = data_preprocessing(object_svrp, model)
         # model['mark_color'] = ['']
@@ -91,10 +99,12 @@ def count_items_by_request():
         model['title'] = 'count items by request'
         return model
 
+
     def add_traces(fig, model):
         for x_index in range( len(model['x'][0]) ):
             fig.add_trace(go.Bar(x= [ model['x'][0][x_index] ], y= [ model['y'][0][x_index] ]))
         return fig
+
 
     def draw_model():
         fig = go.Figure()
@@ -110,6 +120,7 @@ def count_items_by_request():
 # tỷ lệ điểm bắt đầu của các đơn hàng
 def pickup_location_for_request():
 
+
     def data_preprocessing(requests, model):
 
         def get_location_type(locations, location_code):
@@ -123,14 +134,17 @@ def pickup_location_for_request():
         model['values'].append(temp_model.most_common(1)[0][1])
         return model
     
+
     def create_data_model(object_svrp, model):
         model = data_preprocessing(object_svrp, model)
         model['title'] = "pickup location for request"
         return model
+    
 
     def add_traces(fig, model):
         fig.add_trace( go.Pie(labels= model['labels'], values= model['values']) )
         return fig
+
 
     def draw_model():
         fig = go.Figure()
@@ -160,14 +174,17 @@ def delivery_location_for_request():
         model['values'].append(temp_model.most_common(1)[0][1])
         return model
     
+
     def create_data_model(object_svrp, model):
         model = data_preprocessing(object_svrp, model)
         model['title'] = "delivery location for request"
         return model
 
+
     def add_traces(fig, model):
         fig.add_trace( go.Pie(labels= model['labels'], values= model['values']) )
         return fig
+
 
     def draw_model():
         fig = go.Figure()
@@ -192,16 +209,19 @@ def capacity_for_request():
         model['quantity_item'].append( [ requests[request_index]['items'][item_index]['quantity'] for item_index in range( len( requests[request_index]['items'] ) ) ] )
         return model
 
+
     def create_data_model(requests, model, request_index):
         model = data_preprocessing(requests, model, request_index)
         model['title'] = "capacity for request"
         return model
+
 
     def add_traces(fig, model):
         fig.add_trace( go.Scatter( x= model['item_name'][0], y= model['quantity_item'][0], name= 'quantity' ) )
         fig.add_trace( go.Bar( x= model['item_name'][0], y= model['weight_item'][0], name= 'weight' ) )
         fig.add_trace( go.Bar( x= model['item_name'][0], y= model['cbm_item'][0], name= 'cbm' ) )
         return fig
+
 
     def draw_model():
         fig = go.Figure()

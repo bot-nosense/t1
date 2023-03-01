@@ -77,7 +77,6 @@ def wroking_time_of_depot():
                 result.append(timeline)
             return result
 
-
         data = convert_struct_seed(object_operating_time(depots))
         model['timeline']= create_timeline(data)
         
