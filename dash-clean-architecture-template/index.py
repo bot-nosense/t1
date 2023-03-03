@@ -12,7 +12,7 @@ from layout.sidebar.sidebar_callbacks import toggle_collapse, toggle_classname
 
 if __name__ == "__main__":
     app.run_server(
-        debug=True
+        debug=True, port= 2711
         # host=APP_HOST,
         # port=APP_PORT,
         # debug=APP_DEBUG,

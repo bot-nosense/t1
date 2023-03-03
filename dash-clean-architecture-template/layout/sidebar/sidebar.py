@@ -1,6 +1,8 @@
 import dash_bootstrap_components as dbc
 # import dash_html_components as html
 from dash import html
+from utils.constants import update_sidebar
+from utils.functions import render_sidebar
 
 from utils.constants import home_page_location, location_page_location, depot_page_location, vehicle_page_location, request_page_location, customer_page_location, mtr_config_page_location
 
@@ -44,6 +46,17 @@ sidebar_header = dbc.Row(
     ]
 )
 
+
+# update_sidebar = [
+#     ["Home", "Location", "Depot", "Vehicle", "Request", "Customer", "Matrix Config"],
+#     [home_page_location, location_page_location, depot_page_location, vehicle_page_location, request_page_location, customer_page_location, mtr_config_page_location],
+#     ["exact", "exact", "exact", "exact", "exact", "exact", "exact"],
+# ]
+
+# def render_sidebar(model):
+#     return [ dbc.NavLink(model[0][index], href= model[1][index], active=model[2][index]) for index in range(len(model[0])) ]
+
+
 sidebar = html.Div(
     [
         sidebar_header,
@@ -63,15 +76,7 @@ sidebar = html.Div(
         # use the Collapse component to animate hiding / revealing links
         dbc.Collapse(
             dbc.Nav(
-                [
-                    dbc.NavLink("Home", href=home_page_location, active="exact"),
-                    dbc.NavLink("Location", href=location_page_location, active="exact"),
-                    dbc.NavLink("Depot", href=depot_page_location, active="exact"),
-                    dbc.NavLink("Vehicle", href=vehicle_page_location, active="exact"),
-                    dbc.NavLink("Request", href=request_page_location, active="exact"),
-                    dbc.NavLink("Customer", href=customer_page_location, active="exact"),
-                    dbc.NavLink("Matrix Config", href=mtr_config_page_location, active="exact"),
-                ],
+                render_sidebar(update_sidebar),
                 vertical=True,
                 pills=True,
             ),

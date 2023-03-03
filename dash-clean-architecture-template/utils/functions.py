@@ -1,11 +1,13 @@
 import random
+import dash_bootstrap_components as dbc
+
 
 
 '''
 	model = { 'Customer': 4, 'Depot': 2, 'Station': 3, 'Hub': 44, 'Satellite': 4 } 
 	struct_input = { 'Name': [], 'Quantity': [] }
 '''
-# suy tính tới trường hợp struct nhiều hơn 2 key 
+# suy tính tới trường hợp struct nhiều hơn 2 key, lược bỏ trong lần tối ưu tới
 def create_data_model(model, struct):
     A = struct[list(struct.keys())[0]]
     B = struct[list(struct.keys())[1]]
@@ -29,7 +31,12 @@ def set_color_scheme_location_type(location_type):
         case "SATELLITE": return 'purple'
 
 
-def get_minute(time):       # time = '2019-01-01 10:40'
+
+'''     covert time to minutes
+    - input: time in string format - HH:MM:SS
+    - output: time in minutes - HH * 60 + MM
+'''
+def get_minute(time):       
     minute = time.split()[1]
     split_time = minute.split(':')
     result = int(split_time[0]) * 60 + int(split_time[1])
@@ -62,7 +69,9 @@ def object_operating_time(object_svrp):
 
 
 
-
+# create element of sidebar 
+def render_sidebar(model):
+    return [ dbc.NavLink(model[0][index], href= model[1][index], active=model[2][index]) for index in range(len(model[0])) ]
 
 
 
