@@ -27,7 +27,7 @@ def composition_of_locations():
         for a, b in location_type_list.items():
             A.append(str(a))
             B.append(str(b))
-        print('model', model)
+        # print('model', model)
         return model
 
     def create_data_model(locations, model):

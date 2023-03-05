@@ -3,56 +3,15 @@ from components.seed.input.get_seed_input import *
 from utils.functions import *
 from utils.constants import *
 
-
-def vehicle_types():
-
-    def data_preprocessing(matrix_config, model): 
-
-        def get_vehicle_type():
-            return {
-            'Multiple Trips': len(matrix_config['VV']['multipleTrips']['matrix']), 
-            'Maximum Distance Per Route': len(matrix_config['VV']['maximumDistancePerRoute']['matrix']),
-            'Maximum Distance Per Day': len(matrix_config['VV']['maximumDistancePerDay']['matrix']), 
-            'Maximum Customer Per Route': len(matrix_config['VV']['maximumCustomerPerRoute']['matrix']),
-            'Maximum Customer Per Day': len(matrix_config['VV']['maximumCustomerPerDay']['matrix']), 
-            'Cost To Deploy': len(matrix_config['VV']['costToDeploy']['matrix']), 
-            'Price Per Km': len(matrix_config['VV']['pricePerKm']['matrix'])
-        }
-
-        type_list = get_vehicle_type()
-        A = model[list(model.keys())[0]]
-        B = model[list(model.keys())[1]]
-        for a, b in type_list.items():
-            A.append(str(a))
-            B.append(str(b))
-        return model
+import dash_core_components as dcc
 
 
-    def create_data_model(matrix_config, model):
-        model = data_preprocessing(matrix_config, model)
-        model['title'] = "vehicle types"    
-        return model
 
 
-    def add_traces(fig, model):
-        fig.add_trace( go.Pie(labels=  model['name']  , values=  model['quantity']   ) )     
-        return fig
-
-
-    def draw_model():
-        fig = go.Figure()                                           
-        model = { 'name': [], 'quantity': [], "title": []  }                          
-        data_model = create_data_model(matrix_config, model)          
-        add_traces(fig, data_model)
-        fig.update_layout( title={ 'text': model['title'], 'y':0.9, 'x':0.5, 'xanchor': 'right', 'yanchor': 'top'} )                                   
-        pie_chart = Pie_Charts(fig = fig)                
-        return pie_chart.render_go_trace()                      
-
-    return draw_model()
 
 
 # bar scatter combine charts
-def time_per_cbm():
+def time_per_cbm(vehicles):
 
     def data_preprocessing(vehicles, model):
         for veh in range( len(vehicles) ):
@@ -79,14 +38,15 @@ def time_per_cbm():
         fig = go.Figure()
         add_traces(fig, data_model)
         fig.update_layout( title={ 'text': model['title'], 'y':0.9, 'x':0.5, 'xanchor': 'right', 'yanchor': 'top'} )
-        combine_chart = BarScatterCombine(fig = fig)
-        return combine_chart.render_go_trace()
+        # combine_chart = BarScatterCombine(fig = fig)
+        # return combine_chart.render_go_trace()
+        return fig
 
     return draw_model()
 
 
 # bar scatter combine charts
-def time_per_ton():
+def time_per_ton(vehicles):
 
     def data_preprocessing(vehicles, model):
         for veh in range( len(vehicles) ):
@@ -113,9 +73,10 @@ def time_per_ton():
         fig = go.Figure()
         add_traces(fig, data_model)
         fig.update_layout( title={ 'text': model['title'], 'y':0.9, 'x':0.5, 'xanchor': 'right', 'yanchor': 'top'} )
-        combine_chart = BarScatterCombine(fig = fig)
-        return combine_chart.render_go_trace()
-
+        # combine_chart = BarScatterCombine(fig = fig)
+        # return combine_chart.render_go_trace()
+        return fig
+        
     return draw_model()
 
 
@@ -123,7 +84,7 @@ def time_per_ton():
     # bar scatter combine charts
 
 
-def end_location_type_of_vehicles():
+def end_location_type_of_vehicles(vehicles):
 
     def data_preprocessing(vehicles, model): 
         number_of_customer, number_of_depot, number_of_station, number_of_hub, number_of_satellife = 0, 0, 0, 0, 0
@@ -161,13 +122,14 @@ def end_location_type_of_vehicles():
         data_model = create_data_model(vehicles, model)          
         add_traces(fig, data_model)    
         fig.update_layout( title={ 'text': model['title'], 'y':0.9, 'x':0.5, 'xanchor': 'right', 'yanchor': 'top'} )                        
-        combine_chart = BarScatterCombine(fig = fig)                
-        return combine_chart.render_go_trace()                      
+        # combine_chart = BarScatterCombine(fig = fig)                
+        # return combine_chart.render_go_trace()    
+        return fig                  
 
     return draw_model()
 
 
-def start_location_type_of_vehicles():
+def start_location_type_of_vehicles(vehicles):
 
     def data_preprocessing(vehicles, model): 
         number_of_customer, number_of_depot, number_of_station, number_of_hub, number_of_satellife = 0, 0, 0, 0, 0
@@ -206,8 +168,9 @@ def start_location_type_of_vehicles():
         data_model = create_data_model(vehicles, model)          
         add_traces(fig, data_model)    
         fig.update_layout( title={ 'text': model['title'], 'y':0.9, 'x':0.5, 'xanchor': 'right', 'yanchor': 'top'} )                        
-        combine_chart = BarScatterCombine(fig = fig)                
-        return combine_chart.render_go_trace()                      
+        # combine_chart = BarScatterCombine(fig = fig)                
+        # return combine_chart.render_go_trace()
+        return fig                      
 
     return draw_model()
 

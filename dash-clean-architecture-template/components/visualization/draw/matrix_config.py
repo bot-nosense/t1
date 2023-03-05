@@ -51,3 +51,51 @@ def component_config():
         return pie_chart.render_go_trace()                      
 
     return draw_model()
+
+
+def vv_constraint():
+
+    def data_preprocessing(matrix_config, model): 
+
+        def get_vehicle_type():
+            # tìm cách cho đoạn này không bị hard code
+            return {
+            'Multiple Trips': len(matrix_config['VV']['multipleTrips']['matrix']), 
+            'Maximum Distance Per Route': len(matrix_config['VV']['maximumDistancePerRoute']['matrix']),
+            'Maximum Distance Per Day': len(matrix_config['VV']['maximumDistancePerDay']['matrix']), 
+            'Maximum Customer Per Route': len(matrix_config['VV']['maximumCustomerPerRoute']['matrix']),
+            'Maximum Customer Per Day': len(matrix_config['VV']['maximumCustomerPerDay']['matrix']), 
+            'Cost To Deploy': len(matrix_config['VV']['costToDeploy']['matrix']), 
+            'Price Per Km': len(matrix_config['VV']['pricePerKm']['matrix'])
+        }
+
+        type_list = get_vehicle_type()
+        A = model[list(model.keys())[0]]
+        B = model[list(model.keys())[1]]
+        for a, b in type_list.items():
+            A.append(str(a))
+            B.append(str(b))
+        return model
+
+
+    def create_data_model(matrix_config, model):
+        model = data_preprocessing(matrix_config, model)
+        model['title'] = "Vehicle - Vehicle Contraint"    
+        return model
+
+
+    def add_traces(fig, model):
+        fig.add_trace( go.Pie( labels=  model['name'], values=  model['quantity'], hole = 0.3 ) )     
+        return fig
+
+
+    def draw_model():
+        fig = go.Figure()                                           
+        model = { 'name': [], 'quantity': [], "title": []  }                          
+        data_model = create_data_model(matrix_config, model)          
+        add_traces(fig, data_model)
+        fig.update_layout( title= model['title'] )                                   
+        pie_chart = Pie_Charts(fig = fig)                
+        return pie_chart.render_go_trace()                      
+
+    return draw_model()
