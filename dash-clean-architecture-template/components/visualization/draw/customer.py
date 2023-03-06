@@ -9,18 +9,18 @@ from utils.constants import *
 
 
 # unload time của cus
-def unload_time_for_customer():
+def unload_time_for_customer(seed_input):
 
-    def data_preprocessing(customers, model):
-        model['cus_name'].append( [  customers[cus_index]['customerCode'] for cus_index in range( len( customers ) ) ] )
-        model['fixed_unload_time'].append( [  customers[cus_index]['fixedUnloadTime'] for cus_index in range( len( customers ) ) ] )
-        model['unload_time_per_ton'].append( [  customers[cus_index]['unloadTimePerTon'] for cus_index in range( len( customers ) ) ] )
-        model['unload_time_per_cbm'].append( [  customers[cus_index]['unloadTimePerCbm'] for cus_index in range( len( customers ) ) ] )
+    def data_preprocessing(seed_input, model):
+        model['cus_name'].append( [  seed_input[cus_index]['customerCode'] for cus_index in range( len( seed_input ) ) ] )
+        model['fixed_unload_time'].append( [  seed_input[cus_index]['fixedUnloadTime'] for cus_index in range( len( seed_input ) ) ] )
+        model['unload_time_per_ton'].append( [  seed_input[cus_index]['unloadTimePerTon'] for cus_index in range( len( seed_input ) ) ] )
+        model['unload_time_per_cbm'].append( [  seed_input[cus_index]['unloadTimePerCbm'] for cus_index in range( len( seed_input ) ) ] )
         return model
 
 
-    def create_data_model(customers, model):
-        model = data_preprocessing(customers, model)
+    def create_data_model(seed_input, model):
+        model = data_preprocessing(seed_input, model)
         model['title'] = "Unload time for customer"
         return model
 
@@ -35,19 +35,18 @@ def unload_time_for_customer():
     def draw_model():
         fig = go.Figure()
         model = { 'title': [], 'cus_name': [], 'fixed_unload_time': [], 'unload_time_per_ton': [], 'unload_time_per_cbm': [], 'name': [] }
-        data_model = create_data_model(customers, model)
+        data_model = create_data_model(seed_input, model)
         add_traces(fig, data_model)
         fig.update_layout( title={ 'text': model['title'], 'y':0.9, 'x':0.5, 'xanchor': 'right', 'yanchor': 'top'} )
-        combine_chart = BarScatterCombine(fig = fig)
-        return combine_chart.render_go_trace()
+        return fig
 
     return draw_model()
 
 
 
-def wroking_time_of_customer(): # the customer is only open during the day
+def wroking_time_of_customer(seed_input): # the customer is only open during the day
 
-    def data_preprocessing(customers, model):
+    def data_preprocessing(seed_input, model):
         
         # convert data to struct input model
         def convert_struct_time_layout(seed):
@@ -66,14 +65,14 @@ def wroking_time_of_customer(): # the customer is only open during the day
                 result.append(timeline)
             return result
         
-        time_layout = convert_struct_time_layout(object_operating_time(customers))
+        time_layout = convert_struct_time_layout(object_operating_time(seed_input))
         model['timeline']= create_timeline(time_layout)
         return model
     
 
-    def create_data_model(customers, model):
-        model = data_preprocessing(customers, model)
-        model['name_chart']= [customers[index]['customerCode'] for index in range( len(customers) ) ]
+    def create_data_model(seed_input, model):
+        model = data_preprocessing(seed_input, model)
+        model['name_chart']= [seed_input[index]['customerCode'] for index in range( len(seed_input) ) ]
         model['name_of_timeline']= ['Time 1','wroking time','Time 3','wroking time', 'Time 5'] # đặt lại tên
         model['color']= ['#FFD700', '#00EE00', '#FFD700', '#00EE00', '#FFD700'] # đổi lại màu
         model['title'] = "Wroking time of customer"
@@ -88,12 +87,11 @@ def wroking_time_of_customer(): # the customer is only open during the day
 
     def draw_model():
         model = { 'name_chart': [], 'timeline': [], 'name_of_timeline': [], 'color': [], "title": []  }
-        data_model = create_data_model(customers, model)
+        data_model = create_data_model(seed_input, model)
         fig = go.Figure()
         add_traces(fig, data_model)
         fig.update_layout(barmode='stack', title={ 'text': model['title'], 'y':0.9, 'x':0.5, 'xanchor': 'right', 'yanchor': 'top'})  
-        bar_chart = Bar_Charts(fig = fig)
-        return bar_chart.render_go_trace()
+        return fig
 
     return draw_model()
 
