@@ -44,7 +44,7 @@ def composition_of_locations():
         model = { 'location_type': [], 'quantity': [], "title": [], 'color':[] }                          
         data_model = create_data_model(locations, model)          
         add_traces(fig, data_model)
-        fig.update_layout( title={ 'text': model['title'], 'y':0.9, 'x':0.5, 'xanchor': 'right', 'yanchor': 'top'} )
+        fig.update_layout( title= model['title'] )
         pie_chart = Pie_Charts(fig = fig)
         return pie_chart.render_go_trace()                      
 
@@ -64,6 +64,7 @@ def point_on_the_map():
 
     def create_data_model(locations, model):
         model = data_preprocessing(locations, model)
+        model['title'] = "Composition of location with mapbox"
         return model
 
     def add_traces(fig, model):
@@ -76,10 +77,10 @@ def point_on_the_map():
 
     def draw_model():
         fig = go.Figure()                                           
-        model = { 'location_type': [], 'latitude': [], 'longitude': [], 'color': []  }                          
+        model = { 'location_type': [], 'latitude': [], 'longitude': [], 'color': [], "title": []  }                          
         data_model = create_data_model(locations, model)          
         add_traces(fig, data_model)
-        fig.update_layout( title='Mapbox', margin=margin_default,
+        fig.update_layout( title= model['title'], margin=margin_default,
             mapbox=dict( accesstoken=mapbox_access_token, center=locations_default['Ha Noi'], zoom=7, style='light' ), )                                      
         combine_chart = BarScatterCombine(fig = fig)                
         return combine_chart.render_go_trace()                      

@@ -37,7 +37,7 @@ def unload_time_for_customer(seed_input):
         model = { 'title': [], 'cus_name': [], 'fixed_unload_time': [], 'unload_time_per_ton': [], 'unload_time_per_cbm': [], 'name': [] }
         data_model = create_data_model(seed_input, model)
         add_traces(fig, data_model)
-        fig.update_layout( title={ 'text': model['title'], 'y':0.9, 'x':0.5, 'xanchor': 'right', 'yanchor': 'top'} )
+        fig.update_layout( title= model['title'] )
         return fig
 
     return draw_model()
@@ -90,7 +90,7 @@ def wroking_time_of_customer(seed_input): # the customer is only open during the
         data_model = create_data_model(seed_input, model)
         fig = go.Figure()
         add_traces(fig, data_model)
-        fig.update_layout(barmode='stack', title={ 'text': model['title'], 'y':0.9, 'x':0.5, 'xanchor': 'right', 'yanchor': 'top'})  
+        fig.update_layout( barmode='stack', title= model['title'] )  
         return fig
 
     return draw_model()

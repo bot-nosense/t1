@@ -34,7 +34,7 @@ def component_config():
 
     def create_data_model(matrix_config, model):
         model = data_preprocessing(matrix_config, model)
-        model['title'] = "Contraints và số lượng contraint trong matrix config"
+        model['title'] = "Contraints và số lượng contraint"
         return model
 
     def add_traces(fig, model):
@@ -46,7 +46,7 @@ def component_config():
         model = { 'alias_constraint_name': [], 'quantity_constraint': [], 'constraint_name': [], "title": [] }                          
         data_model = create_data_model(matrix_config, model)          
         add_traces(fig, data_model)      
-        fig.update_layout( title={ 'text': model['title'], 'y':0.9, 'x':0.5, 'xanchor': 'right', 'yanchor': 'top'} )                     
+        fig.update_layout( title= model['title'] )                     
         pie_chart = Pie_Charts(fig = fig)                
         return pie_chart.render_go_trace()                      
 

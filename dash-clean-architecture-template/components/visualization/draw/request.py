@@ -59,7 +59,7 @@ def get_item_type_by_vehicle():
 
     def create_data_model(requests, model):
         model = data_preprocessing(requests, model)
-        model['title'] = "get item type by vehicle"
+        model['title'] = "Get item type by vehicle"
         return model
 
 
@@ -73,7 +73,7 @@ def get_item_type_by_vehicle():
         model = { 'name': [], 'quantity': [], "title": []  }                          
         data_model = create_data_model(requests, model)          
         add_traces(fig, data_model)
-        fig.update_layout( title={ 'text': model['title'], 'y':0.9, 'x':0.5, 'xanchor': 'right', 'yanchor': 'top'} )
+        fig.update_layout( title= model['title'] )
         pie_chart = Pie_Charts(fig= fig)                
         return pie_chart.render_go_trace() 
 
@@ -93,10 +93,7 @@ def count_items_by_request():
 
     def create_data_model(object_svrp, model):
         model = data_preprocessing(object_svrp, model)
-        # model['mark_color'] = ['']
-        # model['width'] = ['']
-        # model['name'] = ['']
-        model['title'] = 'count items by request'
+        model['title'] = 'Count items by request'
         return model
 
 
@@ -111,7 +108,7 @@ def count_items_by_request():
         model = { 'title': [], 'x': [], 'y': [], 'width': [], 'marker_color': [], 'name': []}
         data_model = create_data_model(requests, model)
         add_traces(fig, data_model)
-        fig.update_layout( title={ 'text': model['title'], 'y':0.9, 'x':0.5, 'xanchor': 'right', 'yanchor': 'top'} )
+        fig.update_layout( title= model['title'] )
         bar_chart = Bar_Charts(fig= fig)
         return bar_chart.render_go_trace()
     return draw_model()
@@ -137,7 +134,7 @@ def pickup_location_for_request():
 
     def create_data_model(object_svrp, model):
         model = data_preprocessing(object_svrp, model)
-        model['title'] = "pickup location for request"
+        model['title'] = "Pickup location for request"
         return model
     
 
@@ -151,7 +148,7 @@ def pickup_location_for_request():
         model = { 'title': [], 'labels': [], 'values': [], 'width': [], 'name': []}
         data_model = create_data_model(requests, model)
         add_traces(fig, data_model)
-        fig.update_layout( title={ 'text': model['title'], 'y':0.9, 'x':0.5, 'xanchor': 'right', 'yanchor': 'top'} )
+        fig.update_layout( title= model['title'] )
         pie_chart = Pie_Charts(fig= fig)
         return pie_chart.render_go_trace()
 
@@ -177,7 +174,7 @@ def delivery_location_for_request():
 
     def create_data_model(object_svrp, model):
         model = data_preprocessing(object_svrp, model)
-        model['title'] = "delivery location for request"
+        model['title'] = "Delivery location for request"
         return model
 
 
@@ -191,7 +188,7 @@ def delivery_location_for_request():
         model = { 'title': [], 'labels': [], 'values': [], 'width': [], 'name': []}
         data_model = create_data_model(requests, model)
         add_traces(fig, data_model)
-        fig.update_layout( title={ 'text': model['title'], 'y':0.9, 'x':0.5, 'xanchor': 'right', 'yanchor': 'top'} )
+        fig.update_layout( title= model['title'] )
         pie_chart = Pie_Charts(fig= fig)
         return pie_chart.render_go_trace()
         
@@ -212,7 +209,7 @@ def capacity_for_request():
 
     def create_data_model(requests, model, request_index):
         model = data_preprocessing(requests, model, request_index)
-        model['title'] = "capacity for request"
+        model['title'] = "Capacity for request"
         return model
 
 
@@ -229,7 +226,7 @@ def capacity_for_request():
         request_index = 0
         data_model = create_data_model(requests, model, request_index)
         add_traces(fig, data_model)
-        fig.update_layout( title={ 'text': model['title'], 'y':0.9, 'x':0.5, 'xanchor': 'right', 'yanchor': 'top'} )
+        fig.update_layout( title= model['title'] )
         combine_chart = BarScatterCombine(fig = fig)
         return combine_chart.render_go_trace()
 

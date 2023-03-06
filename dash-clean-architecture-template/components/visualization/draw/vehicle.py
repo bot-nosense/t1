@@ -16,31 +16,29 @@ def time_per_cbm(vehicles):
 
     def data_preprocessing(vehicles, model):
         for veh in range( len(vehicles) ):
-            model['Load Time'].append( vehicles[veh]['loadTimePerCbm'])
-            model['Unload Time'].append( vehicles[veh]['unloadTimePerCbm'] )
-            model['Vehicle Name'].append( vehicles[veh]['vehicleCode'])
+            model['load_time'].append( vehicles[veh]['loadTimePerCbm'])
+            model['unload_time'].append( vehicles[veh]['unloadTimePerCbm'] )
+            model['vehicle_name'].append( vehicles[veh]['vehicleCode'])
         return model
 
 
     def create_data_model(vehicles, model):
         model= data_preprocessing(vehicles, model)
-        model['title']= "time per cbm"
+        model['title']= "Time per cbm"
         return model
 
 
     def add_traces(fig, model):
-        fig.add_trace( go.Scatter( x= model['Vehicle Name'], y= model['Load Time'], name= 'Load Time' ) )
-        fig.add_trace( go.Bar( x= model['Vehicle Name'], y= model['Unload Time'], name= 'Unload Time' ) )
+        fig.add_trace( go.Scatter( x= model['vehicle_name'], y= model['load_time'], name= 'Load time per cbm' ) )
+        fig.add_trace( go.Bar( x= model['vehicle_name'], y= model['unload_time'], name= 'Unload time per cbm' ) )
 
 
     def draw_model():
-        model = { 'Load Time': [], 'Unload Time': [], 'Vehicle Name': [], "title": []  }
+        model = { 'load_time': [], 'unload_time': [], 'vehicle_name': [], "title": []  }
         data_model = create_data_model(vehicles, model)
         fig = go.Figure()
         add_traces(fig, data_model)
-        fig.update_layout( title={ 'text': model['title'], 'y':0.9, 'x':0.5, 'xanchor': 'right', 'yanchor': 'top'} )
-        # combine_chart = BarScatterCombine(fig = fig)
-        # return combine_chart.render_go_trace()
+        fig.update_layout( title= model['title'] )
         return fig
 
     return draw_model()
@@ -73,16 +71,10 @@ def time_per_ton(vehicles):
         data_model = create_data_model(vehicles, model)
         fig = go.Figure()
         add_traces(fig, data_model)
-        fig.update_layout( title={ 'text': model['title'], 'y':0.9, 'x':0.5, 'xanchor': 'right', 'yanchor': 'top'} )
-        # combine_chart = BarScatterCombine(fig = fig)
-        # return combine_chart.render_go_trace()
+        fig.update_layout( title= model['title'] )
         return fig
         
     return draw_model()
-
-
-
-    # bar scatter combine charts
 
 
 def end_location_type_of_vehicles(vehicles):
@@ -108,7 +100,7 @@ def end_location_type_of_vehicles(vehicles):
 
     def create_data_model(vehicles, model):
         model = data_preprocessing(vehicles, model)
-        model['title'] = "end location type of vehicles"
+        model['title'] = "End location type of vehicles"
         return model
 
 
@@ -122,9 +114,7 @@ def end_location_type_of_vehicles(vehicles):
         model = { 'name': [], 'quantity': [], "title": [] }                          
         data_model = create_data_model(vehicles, model)          
         add_traces(fig, data_model)    
-        fig.update_layout( title={ 'text': model['title'], 'y':0.9, 'x':0.5, 'xanchor': 'right', 'yanchor': 'top'} )                        
-        # combine_chart = BarScatterCombine(fig = fig)                
-        # return combine_chart.render_go_trace()    
+        fig.update_layout( title= model['title'] )                            
         return fig                  
 
     return draw_model()
@@ -154,7 +144,7 @@ def start_location_type_of_vehicles(vehicles):
 
     def create_data_model(vehicles, model):
         model = data_preprocessing(vehicles, model)
-        model['title'] = "start location type of vehicles"
+        model['title'] = "Start location type of vehicles"
         return model
 
 
@@ -168,9 +158,7 @@ def start_location_type_of_vehicles(vehicles):
         model = { 'name': [], 'quantity': [], "title": [] }                          
         data_model = create_data_model(vehicles, model)          
         add_traces(fig, data_model)    
-        fig.update_layout( title={ 'text': model['title'], 'y':0.9, 'x':0.5, 'xanchor': 'right', 'yanchor': 'top'} )                        
-        # combine_chart = BarScatterCombine(fig = fig)                
-        # return combine_chart.render_go_trace()
+        fig.update_layout( title= model['title'] ) 
         return fig                      
 
     return draw_model()

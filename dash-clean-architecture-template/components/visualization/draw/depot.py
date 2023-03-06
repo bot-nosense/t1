@@ -47,7 +47,7 @@ def composition_of_depot():
         data_model = create_data_model(depots, model)          
         add_traces(fig, data_model)
         pie_chart = Pie_Charts(fig= fig)
-        fig.update_layout( title={ 'text': model['title'], 'y':0.9, 'x':0.5, 'xanchor': 'right', 'yanchor': 'top'} )
+        fig.update_layout( title= model['title'] )
         return pie_chart.render_go_trace()                    
 
     return draw_model()
@@ -93,7 +93,7 @@ def wroking_time_of_depot():
         model['depot_code']= get_depot_code(depots)
         model['time_name']= ['Time 1','Time 2','Time 3','Time 4', 'Time 5'] # đặt lại tên
         model['color']= ['#FFD700', '#00EE00', '#FFD700', '#00EE00', '#FFD700'] # set lại màu
-        model['title'] = "wroking time of depot"
+        model['title'] = "Wroking time of depot"
         return model
 
 
@@ -108,7 +108,7 @@ def wroking_time_of_depot():
         model = { 'depot_code': [], 'timeline': [], 'time_name': [], 'color': [], "title": []  }                        
         data_model = create_data_model(depots, model)          
         add_traces(fig, data_model)
-        fig.update_layout(barmode='stack', title={ 'text': model['title'], 'y':0.9, 'x':0.5, 'xanchor': 'right', 'yanchor': 'top'})
+        fig.update_layout(barmode='stack', title= model['title'])
         bar_chart = Bar_Charts(fig = fig)
         return bar_chart.render_go_trace()              
 
