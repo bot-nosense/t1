@@ -5,7 +5,5 @@ from pages.vehicle.vehicle_callbacks import *
 
 
 layout = html.Div( [
-
-    html.Div(id='test_dropdown_chart', children= test_dropdown_chart())
-
-])
+    html.Div(id='vehicle_type', children= vehicle_type_selector()),
+], id= 'layout_vehicle')

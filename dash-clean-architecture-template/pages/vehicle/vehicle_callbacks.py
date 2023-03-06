@@ -3,15 +3,17 @@ from dash.dependencies import Input, Output, State
 from app import app
 
 
-def test_dropdown_chart():
-    
-    def get_vehicle_to_item_rule(): # lấy ra loại xe khô lạnh đông
-        return list( set ([ matrix_config['CV']['itemToVehicleRule']['matrix'][matrix_index]['typeOfVehicle'] for matrix_index in range( len( matrix_config['CV']['itemToVehicleRule']['matrix'] ) ) ] ) )
+def vehicle_callback_item( constraint_name):
 
+    def get_options():
+        if value_constraint: return [ {'label': x, 'value': x } for x in value_constraint  ]
+        return [ ['could not load data'] ]
+    
+    value_constraint = get_value_in_constraint(constraint_name)
     return [ 
         dcc.Dropdown(
-            options=[ {'label': x, 'value': x } for x in get_vehicle_to_item_rule()  ], 
-            value=get_vehicle_to_item_rule()[0], 
+            options= get_options(), 
+            value= value_constraint[0], 
             id='vehicle_to_item_rule_dropdown',
         ),
         html.Br(),
@@ -25,7 +27,7 @@ def test_dropdown_chart():
     ]
 
 
-def test_callback():
+def vehicle_type_callback():
 
     @app.callback(
         Output(component_id='time_per_cbm', component_property='figure'),
@@ -41,7 +43,18 @@ def test_callback():
             result = {}
             result[vehicle_type] = []
             for vehicle in vehicle_list:
+                # chuyen sang switch case
                 if vehicle['vType']['typeOfVehicleToItemRule'] == vehicle_type: 
+                    result[ vehicle_type ].append(vehicle)
+                elif vehicle['vType']['typeOfVehicleByMultipleTrips'] == vehicle_type:
+                    result[ vehicle_type ].append(vehicle)
+                elif vehicle['vType']['typeOfVehicleByLimitedHour'] == vehicle_type:
+                    result[ vehicle_type ].append(vehicle)
+                elif vehicle['vType']['typeOfVehicleByLimits'] == vehicle_type:
+                    result[ vehicle_type ].append(vehicle)
+                elif vehicle['vType']['typeOfVehicleByCostToDeploy'] == vehicle_type:
+                    result[ vehicle_type ].append(vehicle)
+                elif vehicle['vType']['typeOfVehicleByPricePerKm'] == vehicle_type:
                     result[ vehicle_type ].append(vehicle)
             return result
         
@@ -49,4 +62,30 @@ def test_callback():
         return time_per_cbm(seed[input_value]), time_per_ton(seed[input_value]), start_location_type_of_vehicles(seed[input_value]), end_location_type_of_vehicles(seed[input_value])
 
 
-test_callback()
+def vehicle_type_selector():
+    element_selector = list(set( [ type_index for vehicle in vehicles for type_index in list( vehicle['vType'].keys() ) ] ))
+    return [
+        dcc.Dropdown(
+            options=[ {'label': x, 'value': x } for x in element_selector ], 
+            value= element_selector[0], 
+            id='vehicle_type_selector',
+        ),
+        html.Br(),
+        html.Div(id='callback_vehicle_type')
+    ]
+
+def vehicle_callback_type_selector():
+
+    @app.callback(
+        Output(component_id='callback_vehicle_type', component_property='children'),
+        [Input(component_id='vehicle_type_selector', component_property='value')],
+    )
+    def update_output(input_value):
+        return vehicle_callback_item(input_value)
+    
+    vehicle_type_callback()
+
+
+#--------------------
+
+vehicle_callback_type_selector()
