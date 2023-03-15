@@ -2,10 +2,7 @@ from components.visualization.import_charts import *
 from components.seed.input.get_seed_input import *
 from utils.functions import *
 from utils.constants import *
-
-import dash_core_components as dcc
-
-
+# from dash import dcc
 
 
 
