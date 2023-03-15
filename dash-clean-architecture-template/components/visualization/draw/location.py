@@ -80,7 +80,11 @@ def point_on_the_map():
         model = { 'location_type': [], 'latitude': [], 'longitude': [], 'color': [], "title": []  }                          
         data_model = create_data_model(locations, model)          
         add_traces(fig, data_model)
-        fig.update_layout( title= model['title'], margin=margin_default,
+        fig.update_layout( 
+            title= model['title'],  # add title nhưng không chạy 
+            autosize=True,
+            hovermode='closest',
+            margin=margin_default,
             mapbox=dict( accesstoken=mapbox_access_token, center=locations_default['Ha Noi'], zoom=7, style='light' ), )                                      
         combine_chart = BarScatterCombine(fig = fig)                
         return combine_chart.render_go_trace()                      

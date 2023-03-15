@@ -57,7 +57,7 @@ def time_per_ton(vehicles):
 
     def create_data_model(vehicles, model):
         model= data_preprocessing(vehicles, model)
-        model['title']= "time per ton"
+        model['title']= "Time per ton"
         return model
 
 
