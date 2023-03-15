@@ -1,16 +1,13 @@
-# import json
 
 from dash import html
-# from ..data import locations
-# from components.visualization.common import *
 from components.visualization.draw.location import * 
 
-# json_string = json.dumps(locations)
 
 
 layout = html.Div( [
-    composition_of_locations(), # Pie chart
-    point_on_the_map(), # Scatter Mapbox
+    composition_of_locations(),
+    html.Div( html.P('Composition of location with mapbox')),
+    point_on_the_map(), 
 
 
 
