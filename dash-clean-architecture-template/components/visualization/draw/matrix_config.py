@@ -99,3 +99,63 @@ def vv_constraint():
         return pie_chart.render_go_trace()                      
 
     return draw_model()
+
+
+def matrix_cc_test():
+
+    def data_preprocessing(matrix_config, model): 
+        temp_a = list( dict.fromkeys ( [ matrix_config['CV']['itemToVehicleRule']['matrix'][index]['typeOfItem'] for index in range( len( matrix_config['CV']['itemToVehicleRule']['matrix'] ) ) ] ) )
+        temp_b = list( dict.fromkeys ( [ matrix_config['CV']['itemToVehicleRule']['matrix'][index]['typeOfVehicle'] for index in range( len( matrix_config['CV']['itemToVehicleRule']['matrix'] ) ) ] ) )
+
+        item_b_0 = [ matrix_config['CV']['itemToVehicleRule']['matrix'][index]['value'] for index in range( len( matrix_config['CV']['itemToVehicleRule']['matrix'] ) ) if matrix_config['CV']['itemToVehicleRule']['matrix'][index]['typeOfItem'] == temp_a[0] ]
+        item_b_1 = [ matrix_config['CV']['itemToVehicleRule']['matrix'][index]['value'] for index in range( len( matrix_config['CV']['itemToVehicleRule']['matrix'] ) ) if matrix_config['CV']['itemToVehicleRule']['matrix'][index]['typeOfItem'] == temp_a[1] ]
+
+        model['header'].extend([''])
+        model['header'].extend(temp_a)
+        model['col_value'] = [
+            temp_b,
+            item_b_0,
+            item_b_1,
+        ]
+        return model
+
+
+    def create_data_model(matrix_config, model):
+        model = data_preprocessing(matrix_config, model)
+        model['title'] = "Vehicle - Customer Contraint"    
+        return model
+
+
+    def draw_model():                                          
+        model = { 'col_value': [], 'header': [], "title": []  }                          
+        data_model = create_data_model(matrix_config, model)    
+        datas = [go.Table(
+            columnorder = [1,2],
+            columnwidth = [80,400],
+            header = dict(
+                values = model['header'],
+                line_color='darkslategray',
+                fill_color='royalblue',
+                align=['left','center'],
+                font=dict(color='white', size=12),
+                height=40
+            ),
+            cells=dict(
+                values= model['col_value'],
+                line_color='darkslategray',
+                fill=dict(color=['paleturquoise', 'white']),
+                align=['left', 'center'],
+                font_size=12,
+                height=30
+            )
+        )] 
+        fig = go.Figure()      
+        fig.update_layout( title= model['title'] )                                   
+        table = Tables(data= datas)                
+        return table.render_go()
+    
+    return draw_model()
+
+
+def cv_constraint():
+    return 1
